@@ -35,12 +35,12 @@ a = 3.8
 c = 6
 extent = 3
 Cu_size = 0.4
-Cu_color = (200/255, 117/255, 51/255)
+Cu_color = (.3, .2, .1)
 Cu_material = makeMaterial("Copper", Cu_color, Cu_color, 1)
 O_size = 0.2
 O_material = makeMaterial("Oxygen", (1, 0, 0), (1, 0, 0), 1)
 
-Octahedron_material = makeMaterial("Octahedron", (0.2, 0.4, 0.6), (0.2, .4, 0.6), 0.15)
+Octahedron_material = makeMaterial("Octahedron", (0.2, 0.4, 0.6), (0.2, .4, 0.6), 0.2)
 
 Gs, coppers, oxygens = generate_regular_lattice(a, c, extent)
 
@@ -62,6 +62,9 @@ for Cu in coppers:
                                          segments=50, ring_count=50)
     bpy.context.object.data.materials.append(Cu_material)
     
+    bpy.data.materials["Copper"].use_shadows = False
+    bpy.data.materials["Copper"].emit = .15
+    
 
 
 for O in oxygens:
@@ -69,7 +72,7 @@ for O in oxygens:
                                          segments=35, ring_count=35)
     bpy.context.object.data.materials.append(O_material)
     
-    bpy.data.materials["Copper"].use_shadows = False
+    
 
 # Add octahedra
 abc = np.array([a, a, c])
